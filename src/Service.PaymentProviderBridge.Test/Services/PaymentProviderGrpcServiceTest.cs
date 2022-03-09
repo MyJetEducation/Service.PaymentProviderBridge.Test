@@ -15,7 +15,11 @@ namespace Service.PaymentProviderBridge.Test.Services
 		{
 			string urlTemplate = Program.ReloadedSettings(model => model.ServiceUrl).Invoke();
 
-			string url = urlTemplate.Replace("#transaction-id#", request.TransactionId.ToString(), StringComparison.OrdinalIgnoreCase);
+			string url = urlTemplate
+				.Replace("#transaction-id#", request.TransactionId.ToString(), StringComparison.OrdinalIgnoreCase)
+				.Replace("#ok-url#", "http://somedomain.ru/ok.html", StringComparison.OrdinalIgnoreCase)
+				.Replace("#fail-url#", "http://somedomain.ru/fail.html", StringComparison.OrdinalIgnoreCase)
+				.Replace("#callback-url#", "http://api.dfnt.work/api/v1/paymentdeposit/callback-test", StringComparison.OrdinalIgnoreCase);
 
 			_logger.LogDebug("Redirecting user to pay system url: {url}", url);
 
