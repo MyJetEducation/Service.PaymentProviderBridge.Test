@@ -13,5 +13,8 @@ namespace Service.PaymentProviderBridge.Test.Settings
 
         [YamlProperty("PaymentProviderBridge.Test.ElkLogs")]
         public LogElkSettings ElkLogs { get; set; }
+
+        [YamlProperty("PaymentProviderBridge.Test.ServiceUrl")]
+        public string ServiceUrl { get; set; }
     }
 }
