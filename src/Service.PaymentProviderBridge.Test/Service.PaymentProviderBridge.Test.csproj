@@ -9,15 +9,15 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.3.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
-    <PackageReference Include="MyJetEducation.Service.PaymentDeposit.Client" Version="1.0.0" />
+    <PackageReference Include="MyJetEducation.Service.PaymentDeposit.Client" Version="1.0.1" />
     <PackageReference Include="System.ServiceModel.Primitives" Version="4.9.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.43.0" />
     <PackageReference Include="JetBrains.Annotations" Version="2021.3.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="prometheus-net.AspNetCore" Version="5.0.2" />
+    <PackageReference Include="prometheus-net.AspNetCore" Version="6.0.0" />
     <PackageReference Include="protobuf-net.Grpc.AspNetCore" Version="1.0.152" />
     <PackageReference Include="MySettingsReader" Version="1.2.2" />
     <PackageReference Include="SimpleTrading.BaseMetrics" Version="1.0.3" />
@@ -30,6 +30,7 @@
     <PackageReference Include="MyJetEducation.Service.Core.Client" Version="1.0.32" />
     <PackageReference Include="MyJetEducation.Service.ServiceBus" Version="1.0.15" />
     <PackageReference Include="MyJetEducation.Service.Grpc" Version="1.0.7" />
+    <PackageReference Include="MyJetEducation.Service.PaymentDepositRepository.Client" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
