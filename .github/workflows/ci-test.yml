@@ -47,7 +47,7 @@ jobs:
         registry: ghcr.io
         repository: ${{ secrets.ORG_NAME }}/service.paymentproviderbridge.test/service.paymentproviderbridge.test-test
         tags: latest
-        build_args: app_version=service.paymentproviderbridge.test-test:latest,app_compilation_date=${{ steps.current-time.outputs.formattedTime }}
+        build_args: app_version=service.paymentproviderbridge.test:latest,app_compilation_date=${{ steps.current-time.outputs.formattedTime }}
 
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
