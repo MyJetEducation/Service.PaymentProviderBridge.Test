@@ -19,7 +19,8 @@ namespace Service.PaymentProviderBridge.Test.Services
 				.Replace("#transaction-id#", request.TransactionId.ToString(), StringComparison.OrdinalIgnoreCase)
 				.Replace("#ok-url#", "http://somedomain.ru/ok.html", StringComparison.OrdinalIgnoreCase)
 				.Replace("#fail-url#", "http://somedomain.ru/fail.html", StringComparison.OrdinalIgnoreCase)
-				.Replace("#callback-url#", "http://api.dfnt.work/api/v1/paymentdeposit/callback-test", StringComparison.OrdinalIgnoreCase);
+				.Replace("#callback-url#", "http://api.dfnt.work/api/v1/paymentdeposit/callback-test", StringComparison.OrdinalIgnoreCase)
+				.Replace("#info#", $"{request.Amount} {request.Currency}", StringComparison.OrdinalIgnoreCase);
 
 			_logger.LogDebug("Redirecting user to pay system url: {url}", url);
 
