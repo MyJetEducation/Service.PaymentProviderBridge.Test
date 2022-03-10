@@ -11,7 +11,7 @@ namespace Service.PaymentProviderBridge.Test.Services
 
 		public PaymentProviderGrpcService(ILogger<PaymentProviderGrpcService> logger) => _logger = logger;
 
-		public async ValueTask<ProviderDepositGrpcResponse> DepositAsync(ProviderDepositGrpcRequest request)
+		public ValueTask<ProviderDepositGrpcResponse> DepositAsync(ProviderDepositGrpcRequest request)
 		{
 			string urlTemplate = Program.ReloadedSettings(model => model.ServiceUrl).Invoke();
 
@@ -24,7 +24,7 @@ namespace Service.PaymentProviderBridge.Test.Services
 
 			_logger.LogDebug("Redirecting user to pay system url: {url}", url);
 
-			return await ValueTask.FromResult(new ProviderDepositGrpcResponse
+			return ValueTask.FromResult(new ProviderDepositGrpcResponse
 			{
 				RedirectUrl = url
 			});
