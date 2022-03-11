@@ -16,5 +16,14 @@ namespace Service.PaymentProviderBridge.Test.Settings
 
         [YamlProperty("PaymentProviderBridge.Test.ServiceUrl")]
         public string ServiceUrl { get; set; }
+
+        [YamlProperty("PaymentProviderBridge.Test.OkUrl")]
+        public string OkUrl { get; set; }
+
+        [YamlProperty("PaymentProviderBridge.Test.FailUrl")]
+        public string FailUrl { get; set; }
+
+        [YamlProperty("PaymentProviderBridge.Test.CallbackUrl")]
+        public string CallbackUrl { get; set; }
     }
 }

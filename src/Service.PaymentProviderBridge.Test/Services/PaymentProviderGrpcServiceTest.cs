@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Service.PaymentDeposit.Domain.Models;
+using Service.PaymentProviderBridge.Test.Settings;
 
 namespace Service.PaymentProviderBridge.Test.Services
 {
@@ -13,13 +14,12 @@ namespace Service.PaymentProviderBridge.Test.Services
 
 		public ValueTask<ProviderDepositGrpcResponse> DepositAsync(ProviderDepositGrpcRequest request)
 		{
-			string urlTemplate = Program.ReloadedSettings(model => model.ServiceUrl).Invoke();
+			SettingsModel settings = Program.Settings;
 
-			string url = urlTemplate
-				.Replace("#transaction-id#", request.TransactionId.ToString(), StringComparison.OrdinalIgnoreCase)
-				.Replace("#ok-url#", "http://somedomain.ru/ok.html", StringComparison.OrdinalIgnoreCase)
-				.Replace("#fail-url#", "http://somedomain.ru/fail.html", StringComparison.OrdinalIgnoreCase)
-				.Replace("#callback-url#", "http://api.dfnt.work/api/v1/paymentdeposit/callback-test", StringComparison.OrdinalIgnoreCase)
+			string url = SetTransactionId(settings.ServiceUrl, request.TransactionId)
+				.Replace("#ok-url#", SetTransactionId(settings.OkUrl, request.TransactionId), StringComparison.OrdinalIgnoreCase)
+				.Replace("#fail-url#", SetTransactionId(settings.FailUrl, request.TransactionId), StringComparison.OrdinalIgnoreCase)
+				.Replace("#callback-url#", settings.CallbackUrl, StringComparison.OrdinalIgnoreCase)
 				.Replace("#info#", $"{request.Amount} {request.Currency}", StringComparison.OrdinalIgnoreCase);
 
 			_logger.LogDebug("Redirecting user to pay system url: {url}", url);
@@ -29,5 +29,7 @@ namespace Service.PaymentProviderBridge.Test.Services
 				RedirectUrl = url
 			});
 		}
+
+		private static string SetTransactionId(string urlTemplate, Guid? id) => urlTemplate.Replace("#transaction-id#", id.ToString(), StringComparison.OrdinalIgnoreCase);
 	}
 }
