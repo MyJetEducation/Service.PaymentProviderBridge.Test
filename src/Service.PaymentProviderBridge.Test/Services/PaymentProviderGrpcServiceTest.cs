@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -22,12 +21,15 @@ namespace Service.PaymentProviderBridge.Test.Services
 		public ValueTask<ProviderDepositGrpcResponse> DepositAsync(ProviderDepositGrpcRequest request)
 		{
 			SettingsModel settings = Program.Settings;
+			var transactionId = request.TransactionId.ToString();
 
-			string externalUrl = SetTransactionId(settings.ServiceUrl, request.TransactionId)
-				.Replace("#ok-url#", SetTransactionId(settings.OkUrl, request.TransactionId), StringComparison.OrdinalIgnoreCase)
-				.Replace("#fail-url#", SetTransactionId(settings.FailUrl, request.TransactionId), StringComparison.OrdinalIgnoreCase)
-				.Replace("#callback-url#", settings.CallbackUrl, StringComparison.OrdinalIgnoreCase)
-				.Replace("#info#", $"{request.Amount} {request.Currency}", StringComparison.OrdinalIgnoreCase);
+			string SetTransactionId(string urlTemplate) => urlTemplate.Replace("#transaction-id#", transactionId);
+
+			string externalUrl = SetTransactionId(settings.ServiceUrl)
+				.Replace("#ok-url#", SetTransactionId(settings.OkUrl))
+				.Replace("#fail-url#", SetTransactionId(settings.FailUrl))
+				.Replace("#callback-url#", settings.CallbackUrl)
+				.Replace("#info#", $"{request.Amount} {request.Currency}");
 
 			DepositRegisterResponse registerResponse;
 			using (HttpResponseMessage response = Client.GetAsync(externalUrl).Result)
@@ -60,7 +62,5 @@ namespace Service.PaymentProviderBridge.Test.Services
 				"reject" => TransactionState.Rejected,
 				"approve" => TransactionState.Approved, 
 				_ => TransactionState.Error};
-
-		private static string SetTransactionId(string urlTemplate, Guid? id) => urlTemplate.Replace("#transaction-id#", id.ToString(), StringComparison.OrdinalIgnoreCase);
 	}
 }
